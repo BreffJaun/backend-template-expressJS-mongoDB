@@ -2,21 +2,21 @@
 
 This is a simple template for a backend with express.js and connection to mongoDB.
 
-# *Used Dependencies in this template*
+# Used Dependencies in this template
 - dotenv
 - mongoose
 - express
 - cors
 - morgan
 
-# *Folder structure:*
+# Folder structure:
 - controller
 - middleware
 - models
 - routes
 - seeding
 
-# *to start*
+# to start
 create .env file with 4 Variables after this schema: 
 DB_USER=  Your Mongodb Username 
 DB_PASS=  Your MongdoDB Password

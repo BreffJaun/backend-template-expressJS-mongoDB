@@ -6,9 +6,14 @@ import mongoose from "mongoose";
 import UserModel from "../models/userModel.js";
 
 // C O N N E C T   W I T H   M O N G O O S E  D B
-mongoose.connect(process.env.MONGO_DB_CONNECTION_STRING || "mongodb://localhost:27017/demo")
-.then(() => console.log('Connect with MongoDB: SUCCESS '))
-.catch((err) => console.log('Connect with MongoDB: FAILED ', err))
+const MONGO_DB_CONNECTION_STRING = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_NAME}?retryWrites=true&w=majority` || "mongodb://localhost:27017"
+
+mongoose.set("strictQuery", false); // to prevent an erroneous error message
+mongoose.connect(MONGO_DB_CONNECTION_STRING, 
+{ useNewUrlParser: true, useUnifiedTopology: true })
+.then(() => console.log('Connect with MongoDB: SUCCESS ✅'))
+.catch((err) => console.log('Connect with MongoDB: FAILED ⛔', err))
+// for errors which comes after the successfully connection
 mongoose.connection.on('error', console.log);
 
 // C L E A N I N G   P R O C E S S
@@ -28,7 +33,9 @@ async function cleanDB() {
 }
 
 // npm run clean
-// to clean the db
+// to empty the db
+
+
 
 // Old Spelling
 // async function cleanDB() {

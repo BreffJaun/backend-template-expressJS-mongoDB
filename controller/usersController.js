@@ -1,3 +1,6 @@
+// I M P O R T:  E X T E R N A L  D E P E N D E N C I E S
+import bcrypt from 'bcrypt';
+
 // I M P O R T:  F U N C T I O N S
 import UserModel from '../models/userModel.js';
 
@@ -15,7 +18,15 @@ export async function usersGetAll (req, res, next) {
 // POST (Add) a new User
 export async function usersPostUser (req, res,next) {
   try {
-    res.status(200).json(await UserModel.create(req.body));
+    const newUser = req.body;
+    const existedUser = await UserModel.findOne({email: newUser.email})
+    if(existedUser) {
+      const err = new Error('There is already a user with this email-address');
+      err.statusCode = 400;
+      throw err;
+    }
+    const hashedPassword = await bcrypt.hash(newUser.password, 10);
+    res.status(201).json(await UserModel.create({...newUser, password: hashedPassword}))
   }catch (err) {
     next(err);
   }

@@ -26,7 +26,7 @@ const router = express.Router();
 router
   .route('/')
     .get(auth, admin, usersGetAll)
-    .post(userUpdateValidator, validateRequest, usersPostUser);
+    .post(userValidator, validateRequest, usersPostUser);
 
 router
   .route('/:id')

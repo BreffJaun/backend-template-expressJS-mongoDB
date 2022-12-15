@@ -3,7 +3,7 @@ import express from 'express';
 
 // I M P O R T:  F U N C T I O N S
 import {validateRequest} from '../middleware/validator.js'
-import { userValidator } from '../middleware/userValidator.js';
+import { userValidator, userUpdateValidator } from '../middleware/userValidator.js';
 
 // I M P O R T:  C O N T R O L L E R
 import {
@@ -11,8 +11,12 @@ import {
   usersPostUser, 
   usersGetSpecific, 
   usersPutSpecific, 
-  usersDeleteSpecific
+  usersDeleteSpecific,
+  usersPostLogin
 } from '../controller/usersController.js';
+
+import { auth } from '../middleware/auth.js';
+import { admin } from '../middleware/admin.js';
 
 // ========================
 
@@ -21,13 +25,17 @@ const router = express.Router();
 
 router
   .route('/')
-  .get(usersGetAll)
-  .post(userValidator, validateRequest, usersPostUser);
+    .get(auth, admin, usersGetAll)
+    .post(userUpdateValidator, validateRequest, usersPostUser);
 
 router
   .route('/:id')
-  .get(usersGetSpecific)
-  .put(usersPutSpecific)
-  .delete(usersDeleteSpecific);
+    .get(auth, usersGetSpecific)
+    .put(userUpdateValidator, validateRequest, auth, usersPutSpecific)
+    .delete(auth, usersDeleteSpecific);
+
+router
+  .route('/login')
+    .post(usersPostLogin)
 
   export default router;

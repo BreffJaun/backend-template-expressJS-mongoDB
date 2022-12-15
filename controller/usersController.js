@@ -19,14 +19,16 @@ export async function usersGetAll (req, res, next) {
 export async function usersPostUser (req, res,next) {
   try {
     const newUser = req.body;
-    const existedUser = await UserModel.findOne({email: newUser.email})
+    // check or ensure that the e-mail address do not exist multiple times in the database.
+    const existedUser = await UserModel.findOne({email: newUser.email});
     if(existedUser) {
       const err = new Error('There is already a user with this email-address');
       err.statusCode = 400;
       throw err;
     }
     const hashedPassword = await bcrypt.hash(newUser.password, 10);
-    res.status(201).json(await UserModel.create({...newUser, password: hashedPassword}))
+    const {firstName, lastName, email, address, _id} = await UserModel.create({...newUser, password: hashedPassword})
+    res.status(201).json({firstName, lastName, email, address, _id});
   }catch (err) {
     next(err);
   }
@@ -46,10 +48,29 @@ export async function usersGetSpecific(req, res, next) {
   }
 };
 
-// PUT (Update) specific User
+// PATCH (Update) specific User
 export async function usersPutSpecific(req, res, next) {
   try {
-    res.status(200).json(await UserModel.findByIdAndUpdate(req.params.id, req.body, {new:true}));
+    if (req.params.id !== req.token.userId) {
+      const err = new Error("Not Authorized!");
+      err.statusCode = 401;
+      throw err;
+    }
+    const userData = req.body;
+    const userFromDb = await UserModel.findOne({email: userData.email});
+    if(userFromDb) {
+      const err = new Error("There is no user with this email!");
+      err.statusCode = 401;
+      throw err; 
+    }
+    if(req.body.password) {
+      const hashedPassword = await bcrypt.hash(req.body.password, 10);
+      const {firstName, lastName, email, address, _id} = await UserModel.create({...newUser, password: hashedPassword})
+      res.status(201).json({firstName, lastName, email, address, _id});
+    } else {
+      const user = await UserModel.findByIdAndUpdate(req.params.id, req.body, {new: true, runValidators: true});
+      res.json(user)
+    }
   }catch (err) {
     next(err);
   }
@@ -58,10 +79,44 @@ export async function usersPutSpecific(req, res, next) {
 // Delete specific User
 export async function usersDeleteSpecific (req, res, next) {
   try {
+    if (req.params.id !== req.token.userId) {
+      const err = new Error("Not Authorized! DELETE");
+      err.statusCode = 401;
+      throw err;
+    }
     res.status(200).json(await UserModel.findByIdAndDelete(req.params.id));
   }catch (err) {
     next(err);
   }
 }
+
+// POST Login a User
+export async function usersPostLogin(req, res, next) {
+  try {
+    const userData = req.body;
+    const userFromDb = await UserModel.findOne({email: userData.email});
+    if(!userFromDb) {
+      const err = new Error("There is no user with this email!");
+      err.statusCode = 401;
+      throw err; 
+    }
+    const checkPassword = await bcrypt.compare(userData.password, userFromDb.password);
+    if(!checkPassword) {
+      const err = new Error("Invalid password!");
+      err.statusCode = 401;
+      throw err; 
+    }
+    const token = jwt.sign(
+      {
+      email: userFromDb.email, 
+      userId: userFromDb._id
+      }, 
+      JWT_KEY, 
+      {expiresIn: "3h"})
+      res.status(201).json({message: "Login SUCCESSFUL!", token})
+  } catch (err) {
+    next(err);
+  }
+};
 
 

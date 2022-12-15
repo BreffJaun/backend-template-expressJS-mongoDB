@@ -49,8 +49,9 @@ app.use('*', wrongRoutes);
 
 // S E R V E R - S T A R T
 app.listen(PORT, () => {
-  console.log('Server runs on Port: ' + PORT);
+  console.log('Server runs on Port: ' + PORT, '🔄');
 });
+
 
 
 

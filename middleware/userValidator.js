@@ -29,7 +29,7 @@ export const userValidator = [
     .isLength({min:8})
 ]
 
-const userUpdateValidator = [
+export const userUpdateValidator = [
   body("firstName")
     .optional()
     .isAlpha("de-DE", {ignore: " -"})

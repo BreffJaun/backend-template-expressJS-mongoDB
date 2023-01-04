@@ -12,7 +12,8 @@ import {
   usersGetSpecific, 
   usersPutSpecific, 
   usersDeleteSpecific,
-  usersPostLogin
+  usersPostLogin,
+  usersChecklogin
 } from '../controller/usersController.js';
 
 import { auth } from '../middleware/auth.js';
@@ -37,5 +38,9 @@ router
 router
   .route('/login')
     .post(usersPostLogin)
+
+router
+  .route('/checklogin')
+    .get(usersChecklogin)
 
   export default router;

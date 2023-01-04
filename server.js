@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
+import cookieParser from "cookie-parser";
 
 // I M P O R T:  R O U T E S
 import usersRouter from './routes/users.js';
@@ -33,7 +34,12 @@ const app = express();
 
 // SERVER MIDDLEWARE
 app.use(express.json());
-app.use(cors());
+app.use(cookieParser())
+app.use(cors({
+    origin: 'http://localhost:3000', // hier Render Adresse eintragen
+    credentials: true
+  })
+);
 app.use(morgan("dev"));
 
 // ROUTER MIDDLEWARE

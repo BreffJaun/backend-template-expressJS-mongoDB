@@ -1,8 +1,12 @@
 // I M P O R T:  E X T E R N A L  D E P E N D E N C I E S
 import bcrypt from 'bcrypt';
+import jwt from "jsonwebtoken";
 
 // I M P O R T:  F U N C T I O N S
 import UserModel from '../models/userModel.js';
+
+// I M P O R T  &  D E C L A R E   B C R Y P T   K E Y 
+const JWT_KEY = process.env.SECRET_JWT_KEY || "DefaultValue"
 
 //========================
 
@@ -108,14 +112,42 @@ export async function usersPostLogin(req, res, next) {
     }
     const token = jwt.sign(
       {
-      email: userFromDb.email, 
-      userId: userFromDb._id
+        email: userFromDb.email, 
+        userId: userFromDb._id
       }, 
       JWT_KEY, 
-      {expiresIn: "3h"})
-      res.status(201).json({message: "Login SUCCESSFUL!", token})
+      {expiresIn: "1d"})
+      // INSERT COOKIE CODE //
+      const oneHour = 1000*60*60;
+      res.cookie('loginCookie', token, 
+      {
+        maxAge: oneHour,
+        httpOnly: true
+      })
+      .json(
+      {
+        auth: 'loggedin',
+        email: userFromDb.email, 
+        userId: userFromDb._id,
+        message: "Login SUCCESSFUL!"
+      })
+      // END COOKIE CODE //
+      // res.status(201).json({message: "Login SUCCESSFUL!", token})
   } catch (err) {
     next(err);
+  }
+};
+
+// GET Check if User is already loggedin (if token is still valid)
+export async function usersChecklogin(req, res, next) {
+  try {
+    const token = req.cookies.loginCookie
+    const tokenDecoded = jwt.verify(token, JWT_KEY)
+    console.log('Token in Cookie is valid. User is loggedin');
+    res.status(200).end();
+  } catch (err) {
+    next(err);
+    // res.status(401).end()
   }
 };
 

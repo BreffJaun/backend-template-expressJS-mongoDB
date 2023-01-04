@@ -10,9 +10,12 @@ const JWT_KEY = process.env.SECRET_JWT_KEY || "DefaultValue"
 export function auth (req, res, next) {
   try {
     // If the token is not verified successfully, an error is thrown IMMEDIATELY and it goes into Catch!
-    const token = req.headers.authorization.split(" ")[1];
+
+    // INSERT COOKIE CODE //
+    const token = req.cookies.loginCookie;
     const decodedToken = jwt.verify(token, JWT_KEY)
-    console.log(decodedToken);
+    // END COOKIE CODE //
+    
     req.token = decodedToken
     next()
   } catch (err) {
@@ -21,3 +24,10 @@ export function auth (req, res, next) {
     next(errObj);
   }
 };
+
+
+
+
+// const token = req.headers.authorization.split(" ")[1];
+// const decodedToken = jwt.verify(token, JWT_KEY)
+// console.log(decodedToken);

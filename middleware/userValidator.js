@@ -9,10 +9,10 @@ export const userValidator = [
     .isAlpha("de-DE", {ignore: " -"})
     .withMessage("Firstname contains not allowed signs!")
     .trim() // takes out whitespaces at the beginning and the end of an string
-    .escape(), // changes speciall chars into normal chars
+    .escape(), // changes special chars into normal chars
   body("lastName")
     .trim()
-    .isLength({max:5})
+    .isLength({max:20})
     .escape(),
   body("email")
     .notEmpty()

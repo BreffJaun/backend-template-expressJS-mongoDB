@@ -11,7 +11,7 @@ export function auth (req, res, next) {
   try {
     // If the token is not verified successfully, an error is thrown IMMEDIATELY and it goes into Catch!
 
-    // INSERT COOKIE CODE //
+    // BEGIN COOKIE CODE //
     const token = req.cookies.loginCookie;
     const decodedToken = jwt.verify(token, JWT_KEY)
     // END COOKIE CODE //

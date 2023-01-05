@@ -6,7 +6,8 @@ const userSchema = new Schema({
   firstName: {type: String, required: true}, // Jeff
   lastName: {type: String, required: true}, // Braun
   email: {type: String, required: true},
-  password: {type: String, required: true}
+  password: {type: String, required: true},
+  avatar: {type: String}
   // ,
   // user: {type: Schema.Types.ObjectId, ref: "User", required: true}
   // ,
@@ -16,21 +17,23 @@ const userSchema = new Schema({
   // ,
   // lastName: {type: [String], required: true}
   // ,
-},
-{
-  toObject: {
-  virtuals: true
-  },
-  toJSON: {
-  virtuals: true
-  } 
-}, 
+}
+// ,
+// {
+//   toObject: {
+//   virtuals: true
+//   },
+//   toJSON: {
+//   virtuals: true
+//   } 
+// }
+, 
 {strictQuery: true});
 
 // Virtual
-userSchema.virtual("fullName").get(function() {
-  return `${this.firstName} ${this.lastName}`
-})
+// userSchema.virtual("fullName").get(function() {
+//   return `${this.firstName} ${this.lastName}`
+// })
 
 // M O D E L - T E M P L A T E   F O R   D B   E N T R I E S
 const UserModel = model('User', userSchema, 'users');

@@ -20,7 +20,7 @@ export async function usersGetAll (req, res, next) {
 }
 
 // POST (Add) a new User
-export async function usersPostUser (req, res,next) {
+export async function usersPostUser (req, res, next) {
   try {
     const newUser = req.body;
     // check or ensure that the e-mail address do not exist multiple times in the database.
@@ -31,8 +31,10 @@ export async function usersPostUser (req, res,next) {
       throw err;
     }
     const hashedPassword = await bcrypt.hash(newUser.password, 10);
-    const {firstName, lastName, email, address, _id} = await UserModel.create({...newUser, password: hashedPassword})
-    res.status(201).json({firstName, lastName, email, address, _id});
+    const newCreatedUser = await UserModel.create({...newUser, password: hashedPassword}) // just for the findByIdAndUpdate step 
+    await UserModel.findByIdAndUpdate(newCreatedUser._id, {avatar: `http://localhost:2404/${req.file.path}`})
+    const {firstName, lastName, email, _id} = newCreatedUser
+    res.status(201).json({firstName, lastName, email, _id})
   }catch (err) {
     next(err);
   }

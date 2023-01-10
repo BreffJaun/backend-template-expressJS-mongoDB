@@ -34,6 +34,7 @@ SECRET_JWT_KEY=   Set your own key to encrypt your webtoken with
 SENDGRID_API_KEY= If you use sendGrid, place here your automatically created key which you get from the sendGrid website.   
     
 You can copy the following empty scheme and paste it in your .env file to fill it out:
+
 DB_USER=        
 DB_PASS=        
 DB_HOST=        

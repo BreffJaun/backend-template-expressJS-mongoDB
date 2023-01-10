@@ -24,14 +24,14 @@ This is a simple template for a backend with express.js and connection to mongoD
 
 # to start
 create .env file with 4 Variables after this schema: 
-DB_USER=          Your Mongodb Username 
-DB_PASS=          Your MongdoDB Password
-DB_HOST=          Your MongoDB Host 
-DB_NAME=          Your MongoDb DataBase Name
-PORT=             Port for your Localhost
-SECRET_JWT_KEY=   Set your own key to encrypt your webtoken with
-SENDGRID_API_KEY= If you use sendGrid, place here your automatically created key which you get from the sendGrid website.
-
+DB_USER=          Your Mongodb Username     
+DB_PASS=          Your MongdoDB Password    
+DB_HOST=          Your MongoDB Host     
+DB_NAME=          Your MongoDb DataBase Name    
+PORT=             Port for your Localhost   
+SECRET_JWT_KEY=   Set your own key to encrypt your webtoken with    
+SENDGRID_API_KEY= If you use sendGrid, place here your automatically created key which you get from the sendGrid website.   
+    
 You can copy the following empty scheme and paste it in your .env file to fill it out:
 DB_USER=   
 DB_PASS=  

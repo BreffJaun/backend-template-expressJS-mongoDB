@@ -3,8 +3,8 @@ import {Schema, model} from "mongoose";
 
 // S C H E M A  -  D A T A   S T R U C T U R E
 const userSchema = new Schema({
-  firstName: {type: String, required: true}, // Jeff
-  lastName: {type: String, required: true}, // Braun
+  firstName: {type: String, required: true},
+  lastName: {type: String, required: true},
   email: {type: String, required: false, unique: true},
   // with unique we check and go sure, that this email doesn`t already exists in the database
   password: {type: String, required: true},

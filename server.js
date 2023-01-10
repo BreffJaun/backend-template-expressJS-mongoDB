@@ -36,10 +36,10 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser())
 app.use(cors(
-  {
-    origin: 'http://localhost:3000', // hier Render Adresse eintragen
-    credentials: true
-  }
+  // {
+  //   origin: 'http://localhost:3000', // hier Render Adresse eintragen
+  //   credentials: true
+  // }
   )
 );
 app.use(morgan("dev"));

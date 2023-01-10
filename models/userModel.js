@@ -5,9 +5,13 @@ import {Schema, model} from "mongoose";
 const userSchema = new Schema({
   firstName: {type: String, required: true}, // Jeff
   lastName: {type: String, required: true}, // Braun
-  email: {type: String, required: true},
+  email: {type: String, required: false, unique: true},
+  // with unique we check and go sure, that this email doesn`t already exists in the database
   password: {type: String, required: true},
-  avatar: {type: String}
+  avatar: {type: String},
+  isAdmin: {type: Boolean, default: false},
+  isVerified: {type: Boolean, default: false},
+  isVerifiedTCP: {type: Boolean, default: false}  // TCP = To Change Password;
   // ,
   // user: {type: Schema.Types.ObjectId, ref: "User", required: true}
   // ,

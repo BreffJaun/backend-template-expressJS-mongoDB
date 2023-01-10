@@ -11,10 +11,13 @@ import {
   usersGetAll, 
   usersPostUser, 
   usersGetSpecific, 
-  usersPutSpecific, 
+  usersPatchSpecific, 
   usersDeleteSpecific,
   usersPostLogin,
-  usersChecklogin
+  usersChecklogin,
+  verifyEmail,
+  forgotPassword,
+  setNewPassword
 } from '../controller/usersController.js';
 
 import { auth } from '../middleware/auth.js';
@@ -34,11 +37,9 @@ router
     .post(upload.single('avatar'), userValidator, validateRequest, usersPostUser);
 
 router
-  .route('/:id')
-    .get(auth, usersGetSpecific)
-    .put(userUpdateValidator, validateRequest, auth, usersPutSpecific)
-    .delete(auth, usersDeleteSpecific);
-
+  .route('/verify/:token')
+    .get(verifyEmail)
+    
 router
   .route('/login')
     .post(usersPostLogin)
@@ -46,5 +47,21 @@ router
 router
   .route('/checklogin')
     .get(usersChecklogin)
+
+router
+  .route('/:id')
+    .get(auth, usersGetSpecific)
+    .put(userUpdateValidator, validateRequest, auth, usersPatchSpecific)
+    .delete(auth, usersDeleteSpecific);
+
+router
+  .route('/forgotpassword')
+    .post(forgotPassword)
+    
+router
+  .route('/setnewpassword/:token')
+    .post(setNewPassword)
+
+
 
   export default router;

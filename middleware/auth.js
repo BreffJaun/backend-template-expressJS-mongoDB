@@ -1,4 +1,5 @@
 // I M P O R T:  E X T E R N A L  D E P E N D E N C I E S
+import * as dotenv from "dotenv"; dotenv.config();
 import jwt from "jsonwebtoken";
 
 // I M P O R T  &  D E C L A R E   B C R Y P T   K E Y 

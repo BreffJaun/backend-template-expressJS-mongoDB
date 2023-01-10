@@ -22,6 +22,9 @@
     "multer": "^1.4.5-lts.1"
   },
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "watch": "nodemon server.js",
+    "clean": "node seeding/clean_db.js",
+    "seed": "node seeding/seed_db.js"
   }
 }

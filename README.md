@@ -8,6 +8,7 @@ This is a simple template for a backend with express.js and connection to mongoD
 - express
 - cors
 - morgan
+- faker (to feed database with fake data to test with)
 - jasonwebtoken (jwt => to create tokens)
 - bcrypt (for hashing passwords)
 - cookieParser (to create cookies)

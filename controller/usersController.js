@@ -273,7 +273,9 @@ export async function usersPostLogin(req, res, next) {
       res.cookie('loginCookie', token, 
       {
         maxAge: oneHour,
-        httpOnly: true
+        httpOnly: true,
+        sameSite: "none",
+        secure: true,
       })
       .json(
       {

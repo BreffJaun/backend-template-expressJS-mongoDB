@@ -38,7 +38,8 @@ app.use(express.json());
 app.use(cookieParser())
 app.use(cors(
   // {
-  //   origin: 'http://localhost:3000', // hier Render Adresse eintragen
+  //   origin: 'http://localhost:3000', // fill in here render address
+  // if you want to add more adresses in cors, make an array with single strings.
   //   credentials: true
   // }
   )

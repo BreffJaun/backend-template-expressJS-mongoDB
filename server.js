@@ -6,6 +6,7 @@ import cors from 'cors';
 import morgan from 'morgan';
 import cookieParser from "cookie-parser";
 
+
 // I M P O R T:  R O U T E S
 import usersRouter from './routes/users.js';
 import wrongRoutes from './routes/wrongPath.js';
@@ -35,7 +36,7 @@ app.use(express.static("public"));
 
 // SERVER MIDDLEWARE
 app.use(express.json());
-app.use(cookieParser())
+app.use(cookieParser());
 app.use(cors(
   // {
   //   origin: 'http://localhost:3000', // fill in here render address
@@ -51,11 +52,12 @@ app.use(morgan("dev"));
 app.use('/users', usersRouter);
 
 
+// WRONG PATH HANDLER
+app.use('*', wrongRoutes);
+
 // ERROR HANDLER
 app.use(errorHandler);
 
-// WRONG PATH HANDLER
-app.use('*', wrongRoutes);
 
 // S E R V E R - S T A R T
 app.listen(PORT, () => {

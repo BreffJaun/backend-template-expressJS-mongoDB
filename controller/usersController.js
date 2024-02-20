@@ -1,5 +1,5 @@
 // I M P O R T:  E X T E R N A L  D E P E N D E N C I E S
-import * as dotenv from "dotenv"; dotenv.config();
+import 'dotenv/config'
 import bcrypt from 'bcrypt';
 import jwt from "jsonwebtoken";
 import sgMail from '@sendgrid/mail';

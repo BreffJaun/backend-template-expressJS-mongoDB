@@ -1,11 +1,14 @@
 // I M P O R T:  E X T E R N A L  D E P E N D E N C I E S
-import 'dotenv/config'
-import mongoose from "mongoose";
 import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
 import cookieParser from "cookie-parser";
 
+// I M P O R T:  E N V 
+import { PORT } from './config/config.js';
+
+// I M P O R T:  C O M P O N E N T S 
+import { connectToDatabase } from './config/database.js';
 
 // I M P O R T:  R O U T E S
 import usersRouter from './routes/users.js';
@@ -14,13 +17,10 @@ import wrongRoutes from './routes/wrongPath.js';
 // I M P O R T:  E R R O R  H A N D L E R
 import { errorHandler } from './middleware/errorhandler.js';
 
-
 // ==============================================================
 
 // C R E A T E  S E R V E R
-const PORT = process.env.PORT || 4000
 const app = express();
-
 
 // M I D D L E W A R E
 
@@ -52,14 +52,7 @@ app.use(errorHandler);
 // ==============================================================
 
 // C O N N E C T   W I T H   M O N G O O S E  D B
-const MONGO_DB_CONNECTION_STRING = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_NAME}?retryWrites=true&w=majority` || "mongodb://localhost:27017"
-
-mongoose.connect(MONGO_DB_CONNECTION_STRING)
-  .then(() => console.log('Connect with MongoDB: SUCCESS ✅'))
-  .catch((err) => console.log('Connect with MongoDB: FAILED ⛔', err))
-mongoose.connection.on('error', (err) => {
-    console.error('Error connecting to the database:', err);
-});
+connectToDatabase();
 
 // S E R V E R - S T A R T
 app.listen(PORT, () => {

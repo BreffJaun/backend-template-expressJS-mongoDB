@@ -17,6 +17,14 @@ const wrongPutController = (req, res, next) => {
   }
 };
 
+const wrongPatchController = (req, res, next) => {
+  try {
+    res.status(404).json(`Unknown PATCH path ${req.url}! Please check your path!`);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 const wrongPostController = (req, res, next) => {
   try {
     res.status(404).json(`Unknown POST path ${req.url}! Please check your path!`);
@@ -36,6 +44,7 @@ const wrongDeleteController = (req, res, next) => {
 export {
   wrongGetController,
   wrongPutController,
+  wrongPatchController,
   wrongPostController,
   wrongDeleteController
 }

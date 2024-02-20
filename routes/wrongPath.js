@@ -3,7 +3,7 @@ import express from 'express';
 
 // I M P O R T:  C O N T R O L L E R
 import {
-  wrongGetController, wrongPutController, wrongPostController, wrongDeleteController
+  wrongGetController, wrongPutController, wrongPatchController, wrongPostController, wrongDeleteController
 } from '../controller/wrongController.js';
 
 // C R E A T E  R O U T E S
@@ -12,6 +12,7 @@ router
   .route('*')
     .get(wrongGetController)
     .put(wrongPutController)
+    .patch(wrongPatchController)
     .post(wrongPostController)
     .delete(wrongDeleteController);
 

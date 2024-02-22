@@ -10,12 +10,13 @@ import { PORT } from './config/config.js';
 // I M P O R T:  C O M P O N E N T S 
 import { connectToDatabase } from './config/database.js';
 
+// I M P O R T:  M I D D L E W A R E  H A N D L E R
+import wrongRoutes from './routes/wrongPath.js';
+import errorHandler from './middleware/errorhandler.js';
+
 // I M P O R T:  R O U T E S
 import usersRouter from './routes/users.js';
-import wrongRoutes from './routes/wrongPath.js';
 
-// I M P O R T:  E R R O R  H A N D L E R
-import { errorHandler } from './middleware/errorhandler.js';
 
 // ==============================================================
 
@@ -25,6 +26,7 @@ const app = express();
 // M I D D L E W A R E
 
 // SERVER MIDDLEWARE
+app.use(express.urlencoded({extended: true}));
 app.use(express.static("public"));
 app.use(express.json());
 app.use(cookieParser());

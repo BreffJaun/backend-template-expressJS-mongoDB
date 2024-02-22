@@ -25,4 +25,4 @@ console.log("========= E R R O R =========\n");
   res.status(statusCode).send(errorResponse);
 };
 
-export {errorHandler};
+export default errorHandler;

@@ -4,8 +4,8 @@ import cors from "cors";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
 
-// I M P O R T:  E N V
-import { PORT } from "./config/config.js";
+// I M P O R T:  E N V  O P T I O N S
+import { PORT, corsOptions } from "./config/config.js";
 
 // I M P O R T:  C O M P O N E N T S
 import { connectToDatabase } from "./config/database.js";
@@ -29,14 +29,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use(express.json());
 app.use(cookieParser());
-app.use(
-  cors()
-  // {
-  //   origin: 'http://localhost:3000', // fill in here render address
-  // if you want to add more adresses in cors, make an array with single strings.
-  //   credentials: true
-  // }
-);
+app.use(cors(corsOptions));
 app.use(morgan("dev"));
 
 // ROUTER MIDDLEWARE

@@ -22,10 +22,11 @@ const CORS_ORIGINS = process.env.CORS_ORIGINS
 export const corsOptions = {
   origin: CORS_ORIGINS,
   credentials: true,
+  // ...
 };
 
 // E R R O R  H A N D L I N G  S E T T I N G S
 export const ERROR_HANDLING_OPTIONS = {
-  showStack: process.env.NODE_ENV === "development",
+  // showStack: process.env.NODE_ENV === "development",
   // Further error handling options...
 };

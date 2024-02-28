@@ -25,12 +25,12 @@ const app = express();
 // M I D D L E W A R E
 
 // SERVER MIDDLEWARE
-app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
+app.use(morgan("dev"));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(cors(corsOptions));
-app.use(morgan("dev"));
 
 // ROUTER MIDDLEWARE
 // USERS

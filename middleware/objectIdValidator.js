@@ -2,8 +2,6 @@
 import { query } from "express-validator";
 
 // C R E A T E   V A L I D A T O R
-import { query } from "express-validator";
-
 export const objectIdValidator = [
   query("objectId")
     .notEmpty()

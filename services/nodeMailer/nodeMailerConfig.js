@@ -23,31 +23,29 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const mailOptions = (newUser, createdUser) => {
+const mailOptions = (user, kof) => {
+  // kof => "kind of function"
   const options = {
     from: SENDER_MAIL,
-    to: `${newUser.email}`,
+    to: `${user.email}`,
     subject: MAIL_SUBJECT,
-    html: generateMailHtml(newUser, createVerifyToken(newUser, createdUser)),
+    html: generateMailHtml(user, createVerifyToken(user), kof),
   };
   return options;
 };
 
-export const sendVerifyMail = async (newUser, createdUser) => {
+export const sendMail = async (user, kof) => {
   try {
     await new Promise((resolve, reject) => {
-      transporter.sendMail(
-        mailOptions(newUser, createdUser),
-        function (error, info) {
-          if (error) {
-            console.log(error);
-            reject(error);
-          } else {
-            console.log("Email sent: " + info.response);
-            resolve();
-          }
+      transporter.sendMail(mailOptions(user, kof), function (error, info) {
+        if (error) {
+          console.log(error);
+          reject(error);
+        } else {
+          console.log("Email sent: " + info.response);
+          resolve();
         }
-      );
+      });
     });
   } catch (error) {
     console.error("Failed to send email:", error);

@@ -18,6 +18,7 @@ import {
   usersPatchSpecific,
   usersDeleteSpecific,
   usersPostLogin,
+  usersGetLogout,
   usersChecklogin,
   verifyEmail,
   forgotPassword,
@@ -35,16 +36,16 @@ const upload = multer({ dest: "uploads/" });
 // C R E A T E   R O U T E S
 const router = express.Router();
 
+// Authentication routes
+router.route("/login").post(usersPostLogin);
+router.route("/logout").get(usersGetLogout);
+router.route("/checklogin").get(usersChecklogin);
+
+// User management routes
 router
   .route("/")
   .get(auth, admin, usersGetAll)
   .post(upload.single("avatar"), userValidator, validateRequest, usersPostUser);
-
-router.route("/verify/:token").get(verifyEmail);
-
-router.route("/login").post(usersPostLogin);
-
-router.route("/checklogin").get(usersChecklogin);
 
 router
   .route("/:id", objectIdValidator, auth)
@@ -52,8 +53,11 @@ router
   .put(userUpdateValidator, validateRequest, usersPatchSpecific)
   .delete(usersDeleteSpecific);
 
+// Password management routes
 router.route("/forgotpassword").post(forgotPassword);
+router.route("/resetpassword/:token").post(setNewPassword);
 
-router.route("/setnewpassword/:token").post(setNewPassword);
+// Email verification route
+router.route("/verify/:token").get(verifyEmail);
 
 export default router;

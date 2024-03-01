@@ -55,9 +55,9 @@ export async function usersPostUser(req, res, next) {
 // GET Verify new User via Email
 export async function verifyEmail(req, res, next) {
   try {
-    const verifyToken = req.params.token;
-    const decodedVerifyToken = jwt.verify(verifyToken, JWT_KEY);
-    const id = decodedVerifyToken._id;
+    const { token } = re.params;
+    const decodedToken = jwt.verify(token, JWT_KEY);
+    const id = decodedToken._id;
     const user = await UserModel.findByIdAndUpdate(id, { isVerified: true });
     res.json({ message: "E-Mail is now SUCCESSFULLY verified!" });
     // res.redirect('http://localhost:2404/login')

@@ -2,14 +2,6 @@
 import { validationResult } from "express-validator";
 
 // C R E A T E   V A L I D A T O R
-// export const validateRequest = (req, res, next) => {
-// 	const validationErrors = validationResult(req);
-// 	if (validationErrors.isEmpty()) {
-// 		return next();
-// 	}
-// 	res.status(422).send({ errors: validationErrors.array() });
-// };
-
 export const validateRequest = (req, res, next) => {
   const validationErrors = validationResult(req);
   if (!validationErrors.isEmpty()) {
@@ -17,3 +9,12 @@ export const validateRequest = (req, res, next) => {
   }
   next();
 };
+
+// DIFFERENT VERSION (without sending to errorHandler)
+// export const validateRequest = (req, res, next) => {
+// 	const validationErrors = validationResult(req);
+// 	if (validationErrors.isEmpty()) {
+// 		return next();
+// 	}
+// 	res.status(422).send({ errors: validationErrors.array() });
+// };

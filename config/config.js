@@ -3,9 +3,14 @@ import "dotenv/config";
 
 // ==============================================================
 
+// I M P O R T   H O S T S
+export const BE_HOST = process.env.BE_HOST;
+export const FE_HOST = process.env.FE_HOST;
+
 // D B  C O N N E C T I O N  S T R I N G
+const { DB_USER, DB_PASS, DB_HOST, DB_NAME } = process.env;
 export const MONGO_DB_CONNECTION_STRING =
-  `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_NAME}?retryWrites=true&w=majority` ||
+  `mongodb+srv://${DB_USER}:${DB_PASS}@${DB_HOST}/${DB_NAME}?retryWrites=true&w=majority` ||
   "mongodb://localhost:27017";
 
 // S E R V E R - P O R T
@@ -13,7 +18,11 @@ export const PORT = process.env.PORT || 4000;
 
 // I M P O R T  &  D E C L A R E   B C R Y P T   K E Y
 export const JWT_KEY = process.env.SECRET_JWT_KEY || "DefaultValue";
-// export const JWT_EXPIRATION = process.env.SECRET_JWT_EXPIRATION || '1h';
+export const JWT_EXPIRATION = process.env.SECRET_JWT_EXPIRATION || "1h";
+
+// I M P O R T   N O D E M A I L E R   K E Y S
+export const SENDER_MAIL = process.env.SENDER_MAIL;
+export const GMAIL_APP_PASS = process.env.GMAIL_APP_PASS;
 
 // S E T  C O R S  S E T T I N G S
 const CORS_ORIGINS = process.env.CORS_ORIGINS

@@ -33,6 +33,12 @@ app.use(cookieParser());
 app.use(cors(corsOptions));
 
 // ROUTER MIDDLEWARE
+
+// Ignore-favicon-handler => delete it in case of existing frontend
+app.get("/favicon.ico", (req, res) => {
+  res.status(204).end(); // 204 No Content
+});
+
 // USERS
 app.use("/users", usersRouter);
 

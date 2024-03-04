@@ -7,8 +7,11 @@ import { SENDER_MAIL, GMAIL_APP_PASS } from "../../config/config.js";
 import {
   MAIL_SUBJECT,
   generateMailHtml,
-  createVerifyToken,
+  // createVerifyToken,
 } from "./nodeMailerContent.js";
+
+// I M P O R T:   S E R V I C E S
+import { createVerifyToken } from "../jwt/jwt.js";
 
 //========================
 

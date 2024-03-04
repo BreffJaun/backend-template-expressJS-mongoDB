@@ -9,7 +9,7 @@ import UserModel from "../models/userModel.js";
 // I M P O R T:  E N V  O P T I O N S
 import { JWT_KEY, BE_HOST, cookieAge } from "../config/config.js";
 import { sendMail } from "../services/nodeMailer/nodeMailerConfig.js";
-import { createVerifyToken } from "../services/nodeMailer/nodeMailerContent.js";
+import { createVerifyToken } from "../services/jwt/jwt.js";
 
 //========================
 

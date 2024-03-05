@@ -4,11 +4,7 @@ import nodemailer from "nodemailer";
 
 // I M P O R T:  E N V  O P T I O N S
 import { SENDER_MAIL, GMAIL_APP_PASS } from "../../config/config.js";
-import {
-  MAIL_SUBJECT,
-  generateMailHtml,
-  // createVerifyToken,
-} from "./nodeMailerContent.js";
+import { MAIL_SUBJECT, generateMailHtml } from "./nodeMailerContent.js";
 
 // I M P O R T:   S E R V I C E S
 import { createVerifyToken } from "../jwt/jwt.js";
@@ -17,12 +13,15 @@ import { createVerifyToken } from "../jwt/jwt.js";
 
 // C O N F I G U R A T I O N
 const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 465,
-  secure: true,
+  host: "smtp.ionos.de",
+  port: 587,
+  secure: false,
   auth: {
     user: SENDER_MAIL,
     pass: GMAIL_APP_PASS,
+  },
+  tls: {
+    minVersion: "TLSv1.2",
   },
 });
 
@@ -54,3 +53,14 @@ export const sendMail = async (user, kof) => {
     console.error("Failed to send email:", error);
   }
 };
+
+// SETTINGS FOR GMAIL
+// const transporter = nodemailer.createTransport({
+//   host: "smtp.gmail.com",
+//   port: 465,
+//   secure: true,
+//   auth: {
+//     user: SENDER_MAIL,
+//     pass: GMAIL_APP_PASS,
+//   },
+// });

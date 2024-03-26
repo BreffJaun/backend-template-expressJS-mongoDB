@@ -14,7 +14,7 @@ const userSchema = new Schema(
     isVerified: { type: Boolean, default: false },
     isVerifiedTCP: { type: Boolean, default: false }, // TCP = To Change Password;
     // user: {type: Schema.Types.ObjectId, ref: "User", required: true}
-  }
+  },
   // {
   //   toObject: {
   //     virtuals: true,
@@ -23,7 +23,7 @@ const userSchema = new Schema(
   //     virtuals: true,
   //   },
   // },
-  // { strictQuery: true }
+  { strictQuery: true }
 );
 
 // Virtual

@@ -48,10 +48,16 @@ router
   .post(upload.single("avatar"), userValidator, validateRequest, usersPostUser);
 
 router
-  .route("/:id", objectIdValidator, auth)
-  .get(usersGetSpecific)
-  .put(userUpdateValidator, validateRequest, usersPatchSpecific)
-  .delete(usersDeleteSpecific);
+  .route("/:id")
+  .get(objectIdValidator, auth, usersGetSpecific)
+  .put(
+    objectIdValidator,
+    auth,
+    userUpdateValidator,
+    validateRequest,
+    usersPatchSpecific
+  )
+  .delete(objectIdValidator, auth, usersDeleteSpecific);
 
 // Password management routes
 router.route("/forgotpassword").post(forgotPassword);

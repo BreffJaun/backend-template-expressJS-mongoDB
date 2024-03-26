@@ -146,7 +146,6 @@ export const generateMailHtml = (user, verifyToken, kof) => {
             <p>Hallo ${user.firstName} ${user.lastName},</p>
             <p>Um Ihr Passwort zurückzusetzen, klicken Sie bitte auf den Link am Ende dieser E-Mail.</p>
             <p>Wenn Sie diesen E-Mail-Link nicht angefordert haben, ignorieren Sie bitte diese E-Mail.</p>
-            <p>Vielen Dank und herzlich willkommen bei uns!</p>
             <p>Mit freundlichen Grüßen,</p>
             <p>Ihr Team</p>
           </div>
@@ -157,7 +156,6 @@ export const generateMailHtml = (user, verifyToken, kof) => {
             <p>Hello ${user.firstName} ${user.lastName},</p>
             <p>To reset your password, please click on the link at the bottom of this email.</p>
             <p>If you did not request this email link, please ignore this email.</p>
-            <p>Thank you and welcome to us!</p>
             <p>Best regards,</p>
             <p>Your Team</p>
           </div>

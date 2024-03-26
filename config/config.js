@@ -26,7 +26,7 @@ export const GMAIL_APP_PASS = process.env.GMAIL_APP_PASS;
 
 // C O R S  S E T T I N G S
 const CORS_ORIGINS = process.env.CORS_ORIGINS
-  ? process.env.CORS_ORIGINS.split(",")
+  ? process.env.CORS_ORIGINS.split(",").filter((origin) => origin)
   : "*";
 export const corsOptions = {
   origin: CORS_ORIGINS,

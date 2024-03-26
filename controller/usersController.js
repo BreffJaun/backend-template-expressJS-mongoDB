@@ -1,20 +1,19 @@
 // I M P O R T:  E X T E R N A L  D E P E N D E N C I E S
-import "dotenv/config";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 // I M P O R T:  F U N C T I O N S
 import UserModel from "../models/userModel.js";
+import { sendMail } from "../services/nodeMailer/nodeMailerConfig.js";
 
 // I M P O R T:  E N V  O P T I O N S
 import { JWT_KEY, BE_HOST, cookieAge } from "../config/config.js";
-import { sendMail } from "../services/nodeMailer/nodeMailerConfig.js";
 import { createVerifyToken } from "../services/jwt/jwt.js";
 
 //========================
 
 // GET List of all users ✅
-export const usersGetAll = async () => {
+export const usersGetAll = async (req, res, next) => {
   try {
     res.json(await UserModel.find());
   } catch (err) {

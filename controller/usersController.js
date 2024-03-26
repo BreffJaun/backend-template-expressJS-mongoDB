@@ -15,7 +15,7 @@ import { createVerifyToken } from "../services/jwt/jwt.js";
 // GET List of all users ✅
 export const usersGetAll = async (req, res, next) => {
   try {
-    res.json(await UserModel.find());
+    res.status(200).json(await UserModel.find());
   } catch (err) {
     next(err);
   }

@@ -13,7 +13,7 @@ This is a simple template for a backend with express.js and connection to mongoD
 
 The folders are prefilled with default files. The default files includes routes for handling several user endpints like create a user and get user information.
 
-# to start
+# How to use it
 Create .env file. The template also includes an template for an .env file with the preseted and used environment variables in this template.
 
 Type in terminal
